@@ -145,3 +145,10 @@ def userProfile(request,user_id):
     context = {'feed-user': user, 'rooms': rooms,
                'messages': room_messages, 'topics': topics}
     return render(request, 'base/profile.html', context)
+
+
+
+@login_required
+def updateProfile(request):
+
+    return render(request,"base/update-profile.html")
