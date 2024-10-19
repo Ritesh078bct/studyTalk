@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Room,Topic,Message
-from .forms import RoomForm,RegistrationForm
+from .forms import RoomForm,RegistrationForm,UserForm
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
@@ -142,13 +142,24 @@ def userProfile(request,user_id):
     room_messages = user.message_set.all()
     topics = Topic.objects.all()
     print(user)
-    context = {'feed-user': user, 'rooms': rooms,
-               'messages': room_messages, 'topics': topics}
+    print(request.user)
+    flag=None
+    if user == request.user:
+        flag="True"
+        print(flag)
+    context = {'feed_user': user, 'rooms': rooms,
+               'messages': room_messages, 'topics': topics,'flag':flag}
     return render(request, 'base/profile.html', context)
 
 
 
 @login_required
 def updateProfile(request):
-
-    return render(request,"base/update-profile.html")
+    user=request.user
+    form=UserForm(instance=user)
+    if request.method=="POST":
+        form=UserForm(request.POST,instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile',user_id=user.id)
+    return render(request,"base/update-profile.html",{'form':form})

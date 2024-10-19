@@ -9,6 +9,13 @@ update-profile
 
 <div class="container">
     <h2>edit your profile</h2>
+    <form action="{%url "update-profile" %}" method="post">
+
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary" type="submit">update</button>
+
+    </form>
 </div>
 
 {% endblock %}

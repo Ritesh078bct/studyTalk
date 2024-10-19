@@ -20,6 +20,13 @@ profile
         {% include "base/topic-component.html" %}
     </div>
     <div>
+        <div>
+            <h2>{{feed_user.username}}</h2>
+            <p>{{feed_user.email}}</p>
+            {% if  flag %}
+            <a href="{% url "update-profile" %}">setting</a>
+            {% endif %}
+        </div>
         {% include "base/room-component.html" %}
     </div>
     <div>
