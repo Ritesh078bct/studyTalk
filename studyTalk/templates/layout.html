@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}StudyTalk{% endblock %}
+    </title>
+</head>
+<body>
+    <nav> <span>studyTalk</span>
+    <a href="{% url "index" %}" >home</a>
+    
+    {% if user.is_authenticated %}
+                <form action="{% url 'logout'%}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-danger " type="submit">logOut</button>
+                </form>
+                
+                <a href="{% url "profile" user.id %}">@{{user.username}}</a>
+    {% else %}
+                <a href="{% url "login" %}" class="btn btn-primary "><button>login</button></a>
+                <a href="{% url "sign-up" %}" class="btn btn-primary mx-2"><button>signUP</button></a>
+    {% endif %} 
+                 
+
+                <form action="{% url 'search' %}" method="post">
+                    {% csrf_token %}
+
+                    <input
+                    class="form-control me-2"
+                    type="search"
+                    placeholder="use roomname.."
+                    name="search_query"
+                    required aria-label="Search"
+                 >
+                 <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <hr>  
+            </nav>
+
+
+
+
+
+    {% block content %}
+    
+    {% endblock %}
+</body>
+</html>

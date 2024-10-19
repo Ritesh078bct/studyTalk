@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    create_room
+{% endblock %}
+
+
+{% block content %}
+<form action="{% url "create-room" %} " method="POST">
+{% csrf_token %}
+
+{{form.as_p}}
+
+<button type="submit">submit</button>
+<a href="{% url "index" %}">back</a>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}update page{% endblock %}
+
+
+{% block content %}
+
+<form action="" method="POST">
+{% csrf_token %}
+<h2>update here!</h2>
+    {{form.as_p}}
+<button type="submit">update</button>
+<a href="{% url "index" %}">back</a>
+
+</form>
+
+{% endblock %}
