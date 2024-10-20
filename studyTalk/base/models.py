@@ -9,15 +9,16 @@ class User(AbstractUser):
     email=models.EmailField(unique=True,null=True)
     bio=models.TextField(null=True)
 
-    avatar=models.ImageField(null=True,blank=True,default='avatar.svg')
+    avatar=models.ImageField(upload_to="images/", null=True,blank=True,default='avatar.svg')
 
     USERNAME_FIELD='email'
-    REQUIRED_FIELDS=[]
+    REQUIRED_FIELDS = ['username']  # Required when creating a superuser
+
     # def __str__(self):
     #     return f"{self.username}"
 
 class Topic(models.Model):
-    name=models.CharField(max_length=200)
+    name=models.CharField(max_length=200,null=True,unique=True)
 
     def __str__(self):
         return f"{self.name}"

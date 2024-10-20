@@ -14,11 +14,13 @@
     <a href="{% url "index" %}" >home</a>
     
     {% if user.is_authenticated %}
-                <form action="{% url 'logout'%}" method="post">
+                <form action="{% url 'logout'%}" method="post" >
                     {% csrf_token %}
                     <button class="btn btn-danger " type="submit">logOut</button>
                 </form>
-                
+                {% if user.avatar%}
+                <img height="80" width="80" src="{{user.avatar.url}}" alt="avatar">
+                {% endif %}
                 <a href="{% url "profile" user.id %}">@{{user.username}}</a>
                 <a href="{% url "update-profile" %}">setting</a>
     {% else %}
